@@ -1,7 +1,8 @@
 const express = require('express')
 const dotenv = require('dotenv')
 dotenv.config();
-const ENV = require('./config/env.js')
+const ENV = require('./config/env.js');
+const connectDB = require('./config/db.js');
 
 
 
@@ -13,4 +14,7 @@ app.get("/", (req,res)=>{
 
 const port = ENV.PORT;
 
-app.listen(port, ()=> console.log(`Server started on port : ${port}`))
+app.listen(port, ()=> {
+    console.log(`Server started on port : ${port}`);
+    connectDB();
+})
