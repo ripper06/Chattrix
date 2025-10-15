@@ -6,7 +6,6 @@ const {INGEST_SIGNING_KEY} = require("../config/env")
 // Create a client to send and receive events
 const inngest = new Inngest({ 
     id: "chattrix",
-    signingKey: INGEST_SIGNING_KEY,
 });
 
 const syncUser = inngest.createFunction(
@@ -20,7 +19,7 @@ const syncUser = inngest.createFunction(
         const newUser = {
             clerkId : id,
             email : email_addresses[0]?.email_address,
-            name : `${first_name || ""}${" "}${last_name || ""}`,
+            name : `${first_name || ""} ${last_name || ""}`,
             image : image_url,
         }
 
