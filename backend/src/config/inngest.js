@@ -1,9 +1,13 @@
 const {Inngest} = require('inngest');
 const connectDB = require('./db')
-const User = require('../models/user.model')
+const {User} = require('../models/user.model')
+const {INGEST_SIGNING_KEY} = require("../config/env")
 
 // Create a client to send and receive events
-const inngest = new Inngest({ id: "chattrix" });
+const inngest = new Inngest({ 
+    id: "chattrix",
+    signingKey: INGEST_SIGNING_KEY,
+});
 
 const syncUser = inngest.createFunction(
     {id : "sync-user"},
@@ -15,8 +19,8 @@ const syncUser = inngest.createFunction(
 
         const newUser = {
             clerkId : id,
-            email : email_addresses[0]?.email_addresses,
-            name : `${first_name || ""}${last_name || ""}`,
+            email : email_addresses[0]?.email_address,
+            name : `${first_name || ""}${" "}${last_name || ""}`,
             image : image_url,
         }
 
@@ -37,6 +41,4 @@ const deleteUserFromDB = inngest.createFunction(
 )
 
 // Create an empty array where we'll export future Inngest functions
-const functions = [syncUser,deleteUserFromDB];
-
-module.exports = {functions,inngest};
+module.exports = { inngest, functions: [syncUser, deleteUserFromDB] };
