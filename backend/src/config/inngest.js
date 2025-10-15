@@ -1,5 +1,6 @@
 const {Inngest} = require('inngest');
 const connectDB = require('./db')
+const User = require('../models/user.model')
 
 // Create a client to send and receive events
 const inngest = new Inngest({ id: "chattrix" });
