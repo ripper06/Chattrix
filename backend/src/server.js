@@ -5,7 +5,7 @@ const ENV = require('./config/env.js');
 const connectDB = require('./config/db.js');
 const {clerkMiddleware} = require('@clerk/express')
 const {serve} = require('inngest/express')
-const  {functions,inngest} = require('./config/inngest.js');
+const  {inngest,functions} = require('./config/inngest.js');
 
 const app = express();
 

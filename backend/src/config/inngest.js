@@ -41,4 +41,6 @@ const deleteUserFromDB = inngest.createFunction(
 )
 
 // Create an empty array where we'll export future Inngest functions
-module.exports = { inngest, functions: [syncUser, deleteUserFromDB] };
+const functions = [syncUser, deleteUserFromDB];
+
+module.exports = { inngest, functions };
