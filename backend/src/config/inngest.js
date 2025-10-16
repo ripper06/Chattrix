@@ -1,7 +1,7 @@
 const {Inngest} = require('inngest');
 const connectDB = require('./db')
 const {User} = require('../models/user.model')
-const {INGEST_SIGNING_KEY} = require("../config/env")
+//const {INGEST_EVENT_KEY} = require("../config/env")
 
 // Create a client to send and receive events
 const inngest = new Inngest({ 
