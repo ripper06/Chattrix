@@ -23,7 +23,7 @@ app.get("/", (req,res)=>{
 app.use("/api/inngest", serve({ client: 
     inngest, 
     functions,
-    signingKey: ENV.INGEST_SIGNING_KEY
+    signingKey: ENV.INNGEST_SIGNING_KEY
  }));
 
 
