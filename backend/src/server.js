@@ -6,10 +6,13 @@ const connectDB = require('./config/db.js');
 const {clerkMiddleware} = require('@clerk/express')
 const {serve} = require('inngest/express')
 const  {inngest,functions} = require('./config/inngest.js');
+const clerkWebhookRouter = require('./routes/clerk-webhook.js');
 
 const app = express();
 
 app.use(express.json()); //acccess req.body
+
+app.use(clerkWebhookRouter);
 
 app.use(clerkMiddleware());
 
