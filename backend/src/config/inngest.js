@@ -1,7 +1,7 @@
 const {Inngest} = require('inngest');
 const connectDB = require('./db')
 const {User} = require('../models/user.model')
-//const {INGEST_EVENT_KEY} = require("../config/env")
+const {upsertStreamUser} = require('./stream')
 
 // Create a client to send and receive events
 const inngest = new Inngest({ 
@@ -11,6 +11,7 @@ const inngest = new Inngest({
 const syncUser = inngest.createFunction(
     {id : "sync-user"},
     {event : "clerk/user.created"},
+
     async ({event})=> {
         await connectDB();
 
@@ -24,6 +25,12 @@ const syncUser = inngest.createFunction(
         }
 
         await User.create(newUser);
+
+        await upsertStreamUser({
+        id: newUser.clerkId.toString(),
+        name: newUser.name,
+        image: newUser.image,
+       });
     }
 )
 
@@ -35,7 +42,7 @@ const deleteUserFromDB = inngest.createFunction(
         const {id} = event.data;
 
         await User.deleteOne({clerkId : id});
-        //await deleteStreamUser(id.toString());
+        await deleteStreamUser(id.toString());
     }
 )
 
