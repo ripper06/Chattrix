@@ -1,3 +1,5 @@
+require('../instrument.cjs')
+const Sentry = require("@sentry/node");
 const express = require('express')
 const dotenv = require('dotenv')
 dotenv.config();
@@ -7,14 +9,18 @@ const {clerkMiddleware} = require('@clerk/express')
 const {serve} = require('inngest/express')
 const  {inngest,functions} = require('./config/inngest.js');
 const clerkWebhookRouter = require('./routes/clerk-webhook.js');
+const chatRoutes = require('./routes/chat.route.js')
+
 
 const app = express();
 
 app.use(express.json()); //acccess req.body
-
 app.use(clerkWebhookRouter);
-
 app.use(clerkMiddleware());
+
+app.get("/debug-sentry", (req, res) => {
+  throw new Error("My first Sentry error!");
+});
 
 app.get("/", (req,res)=>{
     res.send("Hello World!")
@@ -26,6 +32,9 @@ app.use("/api/inngest", serve({ client:
     signingKey: ENV.INNGEST_SIGNING_KEY
  }));
 
+ app.use("/api/chat", chatRoutes);
+
+Sentry.setupExpressErrorHandler(app);
 
 const startServer = async ()=>{
     try {
