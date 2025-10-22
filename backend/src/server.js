@@ -11,10 +11,12 @@ const  {inngest,functions} = require('./config/inngest.js');
 const clerkWebhookRouter = require('./routes/clerk-webhook.js');
 const chatRoutes = require('./routes/chat.route.js')
 
+const cors = require('cors')
 
 const app = express();
 
 app.use(express.json()); //acccess req.body
+app.use(cors({ origin: "http://localhost:4050", credentials: true }));
 app.use(clerkWebhookRouter);
 app.use(clerkMiddleware());
 
@@ -24,7 +26,7 @@ app.get("/debug-sentry", (req, res) => {
 
 app.get("/", (req,res)=>{
     res.send("Hello World!")
-})
+ })
 
 app.use("/api/inngest", serve({ client: 
     inngest, 
