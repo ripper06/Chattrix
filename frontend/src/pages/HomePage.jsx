@@ -19,7 +19,7 @@ import { HashIcon, PlusIcon, UsersIcon } from "lucide-react";
 import CreateChannelModal from "../components/CreateChannelModal";
 import CustomChannelPreview from "../components/CustomChannelPreview";
 import UsersList from "../components/UsersList";
-// import CustomChannelHeader from "../components/CustomChannelHeader";
+import CustomChannelHeader from "../components/CustomChannelHeader";
 
 const HomePage = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -53,7 +53,7 @@ const HomePage = () => {
               {/* HEADER */}
               <div className="team-channel-list__header gap-4">
                 <div className="brand-container">
-                  <img src="/logo.png" alt="Logo" className="brand-logo" />
+                  <img src="/logo-big.png" alt="Logo" className="brand-logo" />
                   <span className="brand-name">Slap</span>
                 </div>
                 <div className="user-button-wrapper">
@@ -113,7 +113,7 @@ const HomePage = () => {
           <div className="chat-main">
             <Channel channel={activeChannel}>
               <Window>
-                {/* <CustomChannelHeader /> */}
+                <CustomChannelHeader />
                 <MessageList />
                 <MessageInput />
               </Window>
