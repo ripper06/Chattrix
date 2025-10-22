@@ -1,7 +1,7 @@
 const {Inngest} = require('inngest');
 const connectDB = require('./db')
 const {User} = require('../models/user.model')
-const {upsertStreamUser} = require('./stream')
+const {addUserToPublicChannels,deleteStreamUser,upsertStreamUser} = require('./stream')
 
 // Create a client to send and receive events
 const inngest = new Inngest({ 
@@ -31,6 +31,8 @@ const syncUser = inngest.createFunction(
         name: newUser.name,
         image: newUser.image,
        });
+
+       await addUserToPublicChannels(newUser.clerkId.toString());
     }
 )
 

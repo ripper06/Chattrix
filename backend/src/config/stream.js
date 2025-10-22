@@ -36,4 +36,12 @@ const generateStreamToken = (userId) => {
   }
 };
 
-module.exports = { upsertStreamUser, deleteStreamUser, generateStreamToken }
+const addUserToPublicChannels = async (newUserId) => {
+  const publicChannels = await streamClient.queryChannels({ discoverable: true });
+
+  for (const channel of publicChannels) {
+    await channel.addMembers([newUserId]);
+  }
+};
+
+module.exports = { upsertStreamUser, deleteStreamUser, generateStreamToken, addUserToPublicChannels }
