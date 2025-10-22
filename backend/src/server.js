@@ -16,7 +16,7 @@ const cors = require('cors')
 const app = express();
 
 app.use(express.json()); //acccess req.body
-app.use(cors({ origin: "http://localhost:4050", credentials: true }));
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(clerkWebhookRouter);
 app.use(clerkMiddleware());
 

@@ -9,7 +9,7 @@ const AuthPage = () => {
       <div className="auth-left">
         <div className="auth-hero">
             <div className="brand-container">
-                <img src="/good-logo.png" alt="Chattrix" className='brand-logo'/>
+                <img src="/logo-big.png" alt="Chattrix" className='brand-logo'/>
                 <span className='brand-name'>Chattrix</span>
             </div>
             <h1 className='hero-title'>The matrix for team chats✨</h1>
